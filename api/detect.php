@@ -21,29 +21,41 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 
         if( isset($data_json['itag']) && isset($data_json['androidbox']) )
         {
-            $GetiTAGversion = $dataFunction->CheckVersionAndGetLists('itag','checkversion');
             $itag_data = $data_json['itag'];
             $androidbox_data = $data_json['androidbox'];
-            $itag_version_data = $itag_data['version'];
-            if($GetiTAGversion!=$itag_version_data)
+            $GetiTAGversion = $dataFunction->CheckVersionAndGetLists('itag','checkversion');
+
+            if( isset($itag_data['list']) )
             {
-                $itag_list = $dataFunction->CheckVersionAndGetLists('itag','getlists');
-                $itag_list = ["itag_list"=>$itag_list];
+                $itag_version_data = $itag_data['version'];
+                if($GetiTAGversion!=$itag_version_data)
+                {
+                    $itag_list = $dataFunction->CheckVersionAndGetLists('itag','getlists');
+                    $itag_list = ["itag_list"=>$itag_list];
+                }
+                else
+                {
+                    $itag_list = [];
+                }
+                $code = 200;
+                $message = "Send Success";
+                $version = $GetiTAGversion;
+                $data = $itag_list;                
             }
-            else
+            else if( isset($itag_data['list']) )
             {
-                $itag_list = [];
+                $code = 200;
+                $message = "Send Success => NO HAVE PARAMS LIST";
+                $version = $GetiTAGversion;
+                $data = [];
             }
-            $code = 200;
-            $message = "Send Success";
-            $version = $GetiTAGversion;
-            $data = $itag_list;
+
         }
         else
         {
             $code = 400;
             $message = "NOT PARAMS => KICK KICK!!!";
-            $version = '';
+            $version = 'xxxx2020xxxxx';
             $data = [];
         }
         $FLAG_WRITEJSON = 1;
@@ -54,7 +66,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     {
         $code = 500;
         $message = "BODY RAW JSON => KICK KICK!!!";
-        $version = '';
+        $version = 'xxxx2020xxxxx';
         $data = [];
     }
 }
@@ -62,7 +74,7 @@ else if($_SERVER['REQUEST_METHOD']=='GET')
 {
     $code = 400;
     $message = "POST METHOD => KICK KICK!!!";
-    $version = '';
+    $version = 'xxxx2020xxxxx';
     $data = [];
 }
 
@@ -79,11 +91,11 @@ echo json_encode($data,JSON_PRETTY_PRINT);
 // 
 // 
 
-writeJSON($FLAG_WRITEJSON,$itag_data);
+// writeJSON($FLAG_WRITEJSON,$itag_data);
 
 
 //WriteLogs
-$logsFunction->WriteAndroidboxLOG($data_json);
+// $logsFunction->WriteAndroidboxLOG($data_json);
 
 function writeJSON($FLAG_WRITEJSON,$itag_data)
 {

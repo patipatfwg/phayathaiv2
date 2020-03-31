@@ -37,13 +37,12 @@ class dataFunction
                 {
                     $data[$num] = array(
                         'mac_address'=> $device[$num]['mac_address'],
-                        'title'=> $device[$num]['title']
+                        'uuid'=> '0000000000000'
+                        // ,'title'=> $device[$num]['title']
                     );
                 }
             }
-           
         }
-        
         return $data;
     }
 
