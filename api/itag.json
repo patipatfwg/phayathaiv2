@@ -1,0 +1,18 @@
+{
+  "version":"3003202005001",
+  "default":[
+    {
+      "name":"iTAG",
+      "global_value":-73
+    }
+  ],
+  "device" : [
+        {
+          "uuid": "",
+          "mac_address":"FF:FF:B1:25:6D:80",
+          "name":"iTAG",
+          "title": "นายปฏิพัทธ์ จันทร์รุ่งเรือง",
+          "position": "ผู้ช่วยพยาบาล"
+        }
+  ]
+}
