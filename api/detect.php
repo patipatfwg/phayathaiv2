@@ -13,7 +13,7 @@ $data_json = json_decode($content, true);
 $FLAG_WRITEJSON = 0;
 $FLAG_APILOG = 0;
 
-if($_SERVER['REQUEST_METHOD']=='POST')
+if($_SERVER['REQUEST_METHOD']=='GET')
 {
     if( isset($data_json) )
     {
@@ -70,10 +70,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         $data = [];
     }
 }
-else if($_SERVER['REQUEST_METHOD']=='GET')
+else if($_SERVER['REQUEST_METHOD']=='POST')
 {
     $code = 400;
-    $message = "POST METHOD => KICK KICK!!!";
+    $message = "GET METHOD => KICK KICK!!!";
     $version = 'xxxx2020xxxxx';
     $data = [];
 }
