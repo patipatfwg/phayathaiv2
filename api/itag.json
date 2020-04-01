@@ -1,6 +1,6 @@
 {
   "version":"3003202005001",
-  "default":[
+  "config":[
     {
       "name":"iTAG",
       "global_value":-73
@@ -8,7 +8,7 @@
   ],
   "device" : [
         {
-          "uuid": "",
+          "uuid": "0000000000000000",
           "mac_address":"FF:FF:B1:25:6D:80",
           "name":"iTAG",
           "title": "นายปฏิพัทธ์ จันทร์รุ่งเรือง",

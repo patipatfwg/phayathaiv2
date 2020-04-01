@@ -46,6 +46,33 @@ class dataFunction
         return $data;
     }
 
+    function writeJSON($FLAG_WRITEJSON,$itag_data)
+    {
+        if($FLAG_WRITEJSON==1)
+        {
+            if(count($itag_data)>0)
+            {
+
+                //
+                $GetDataAPI = array("Name"=>"ABC");
+                //
+                $filenameGetDataAPI = "json/DataJSON.json";
+                $file_encodeGetDataAPI = json_encode($GetDataAPI,true);
+                file_put_contents($filenameGetDataAPI, $file_encodeGetDataAPI );
+                chmod($filenameGetDataAPI,0777);
+            }
+        }
+
+        if( file_exists($filenameGetDataAPI) )
+        {
+            return 200;
+        }
+        else
+        {
+            return 400;
+        }
+    }
+
     /*
     function GetVersionAndroidbox()
     {

@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         $GetDataAPI = json_decode($GetDataAPI, true);
         echo json_encode($GetDataAPI);
         //
-        unlink($filename);
+        // unlink($filename);
         //
     }
 }
