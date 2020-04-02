@@ -140,7 +140,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         else
         {
             $code = 400;
-            $message = "NOT PARAMS => KICK KICK!!!";
+            $message = "NOT PARAMS $FLAG_PARAMS $FLAG_PARAMS2 $FLAG_PARAMS_VERSION  => KICK KICK!!!";
             $version = 'xxxx2020xxxxx';
             $data = [];
         }
