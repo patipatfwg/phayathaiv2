@@ -57,19 +57,21 @@
     $(document).ready(function() 
     {
         setTimeout(4000);
-        var abc = [];
-        // var nurse_label = [];
+        var url = 'http://localhost';
+        // var url = 'http://freewillmdc.loginto.me:56870';
+        var li_list = [];
+        var path = '/phayathaiv2/api/view.php';
         $.ajax(
         {
-            // url: 'https://mysososo.000webhostapp.com/phayathai/api/view.php',
-            // url: 'http://10.32.11.72:7777/phayathai/api/view.php',
-            url: 'http://freewillmdc.loginto.me:56870/phayathai/api/view.php',
+            url : url+path,
             type: 'POST',
             datatype: 'json',
-            success: function(data) 
+            success: function(data)
             {
-                var HttpCode = data['head']['code'];
+                console.log("Success");
                 console.log("Success : " + data['body']['room'] );
+
+                var HttpCode = data['head']['code'];                
                 if(HttpCode=200)
                 {
                     var room_list = data['body']['room'];
@@ -92,7 +94,8 @@
                             
                             for (j = 0; j < count_nurse; j++)
                             {
-                                nurse_label += (j+1)+') '+data_nurse[j]['title']+' | '+data_nurse[j]['distance']+' dBm<br>';
+                                // nurse_label += (j+1)+') '+data_nurse[j]['mac_address']+' | '+data_nurse[j]['distance']+' dBm<br>';
+                                nurse_label += (j+1)+') '+data_nurse[j]['mac_address']+' | '+data_nurse[j]['distance']+' dBm<br>';
                                 console.log(nurse_label);
                             }
                         }
@@ -105,9 +108,9 @@
                             var nurse_label = '<br>';
                         }                        
                     
-                        abc += "<li class='ds-btn4'> <a class='"+aclass+"' href='#'><center>"+icon+"</center><span><b>"+data_room_title+"</b><br><small>"+label+"<br>"+nurse_label+"</small></span></a> </li>";
+                        li_list += "<li class='ds-btn4'> <a class='"+aclass+"' href='#'><center>"+icon+"</center><span><b>"+data_room_title+"</b><br><small>"+label+"<br>"+nurse_label+"</small></span></a> </li>";
                     }
-                    $("#col-room").html(abc);
+                    $("#col-room").html(li_list);
                 }
                 else
                 {
@@ -116,7 +119,8 @@
             },
             error: function() 
             { 
-                alert('Failed : ' + data['head']['code']); 
+                // console.log("Failed : " + data['head']['code'] );
+                console.log("Failed" );
             },
             beforeSend: setHeader       
         });   
@@ -126,7 +130,7 @@
     function setHeader(xhr) 
     {
         xhr.withCredentials = true;
-        xhr.setRequestHeader('Authorization', 'Phayathai');
+        xhr.setRequestHeader('Authorization', 'phayathai@freewill');
     }
     //Reload
     setInterval(function(){

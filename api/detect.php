@@ -1,24 +1,26 @@
 <?php 
+// ini_set('display_errors', 'On');
+// error_reporting(E_ALL);
 
 session_start();
 header('Content-Type: application/json');
-include "logsFunction.php";
-include "dataFunction.php";
 
-$logsFunction = new logsFunction;
+include "dataFunction.php";
+include "roomFunction.php";
 $dataFunction = new dataFunction;
+$roomFunction = new roomFunction;
+
 $content = trim(file_get_contents("php://input"));
 $data_json = json_decode($content, true);
 
 $FLAG_WRITEJSON = 0;
+$FLAG_VIEW = 0;
 $FLAG_APILOG = 0;
 
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
     if( isset($data_json) )
     {
-        $logsFunction->WriteAndroidboxLOG($data_json);
-
         if( isset($data_json['itag']) && isset($data_json['androidbox']) )
         {
             $itag_data = $data_json['itag'];
@@ -49,7 +51,13 @@ if($_SERVER['REQUEST_METHOD']=='POST')
                 $version = $GetiTAGversion;
                 $data = [];
             }
-
+            $FLAG_WRITEJSON = 1;
+            $FLAG_VIEW = 0;
+            $FLAG_APILOG = 0;
+            if($FLAG_WRITEJSON==1)
+            {
+                $dataFunction->WriteAndroidboxLOG($data_json);
+            }            
         }
         else
         {
@@ -58,8 +66,6 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             $version = 'xxxx2020xxxxx';
             $data = [];
         }
-        $FLAG_WRITEJSON = 1;
-        $FLAG_APILOG = 0;
         //End
     }
     else
@@ -73,9 +79,18 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 else if($_SERVER['REQUEST_METHOD']=='GET')
 {
     $code = 400;
-    $message = "POST METHOD => KICK KICK!!!";
+    $message = "METHOD WHAT => KICK KICK!!!";
     $version = 'xxxx2020xxxxx';
     $data = [];
+}
+
+if($FLAG_VIEW==1)
+{
+    $GetRoom = ["footer"=>$roomFunction->GetRoom($FLAG_VIEW)];
+}
+else
+{
+    $GetRoom = [];
 }
 
 $data = [
@@ -83,136 +98,16 @@ $data = [
     "body"=>$data
 ];
 
+$data = $data + $GetRoom;
+
 echo json_encode($data,JSON_PRETTY_PRINT);
  
 //
 // 
 //Backend
 // 
-// 
-
-// $dataFunction->writeJSON(1,$itag_data);
-    GetRoom();
-
-//
-//
 //
 
-
-function GetRoom()
-{
-    //GET Room
-    if( !isset($FLAG_GetDataAPI) )
-    {
-        $device_json = trim(file_get_contents("androidbox.json"));
-        $device_json = json_decode($device_json, true);
-
-        for($getRoom=0;$getRoom<count($device_json['device']);$getRoom++)
-        {
-            $get_nurse_list=[];
-            $device_device_id = $device_json['device'][$getRoom]['device_id'];
-            $device_title = $device_json['device'][$getRoom]['title'];
-            $device_ordinal = $device_json['device'][$getRoom]['ordinal'];
-
-            $device_device_id_URL = "androidboxlogs/".$device_device_id.".json";
-            if( file_exists($device_device_id_URL) )
-            {
-                $iTAG_json = trim(file_get_contents($device_device_id_URL));
-                $iTAG_json = json_decode($iTAG_json, true);
-                $get_nurse_list = [];
-                
-                for($getNurse=0;$getNurse<count($iTAG_json);$getNurse++)
-                {
-                    $uuid = $iTAG_json[$getNurse]['uuid'];
-                    $mac_address = $iTAG_json[$getNurse]['mac_address'];
-                    $distance = $iTAG_json[$getNurse]['distance'];
-                    $title = $iTAG_json[$getNurse]['title'];
-                    
-                    if( strstr( $title,"iTAG"))
-                    {
-                        if( $distance>(-80.0) )
-                        {
-                            $get_nurse_list[$getNurse] = array(
-                                'uuid'=>$uuid,
-                                'mac_address'=>$mac_address,
-                                'distance'=>$distance,
-                                'title'=>$title,
-                            );
-                        }
-                    }
-
-                    // if( strstr( $title,"iTAG") || $title=="Redmi AirDots_L" )
-                    // {
-                    //     if( $distance>(-80.0) )
-                    //     {
-                    //         $get_nurse_list[$getNurse] = array(
-                    //             'mac_address'=>$mac_address,
-                    //             'distance'=>$distance,
-                    //             'title'=>$title,
-                    //         );
-                    //     }
-                    // }
-                } 
-
-                //Sort
-                sort($get_nurse_list);
-                foreach ($get_nurse_list as $key => $val) {
-                    $get_nurse_list[$key] = array(
-                        'uuid'=>$uuid,
-                        'mac_address'=>$val['mac_address'],
-                        'distance'=>$val['distance'],
-                        'title'=>$val['title'],
-                    );
-                }
-                //
-
-            }
-            if(!isset($get_nurse_list)){ $get_nurse_list=[]; }
-            $DataRoom[$getRoom] = array(
-                                        "ordinal"=>$device_ordinal,
-                                        "device_id"=>$device_device_id,
-                                        "room_title"=>$device_title,
-                                        "nurse_list"=>$get_nurse_list
-                                    );
-
-        }
-
-        //Sort
-        sort($DataRoom);
-        foreach ($DataRoom as $key => $val) {
-            $DataRoom[$key] = array(
-                "ordinal"=>$val['ordinal'],
-                "device_id"=>$val['device_id'],
-                "room_title"=>$val['room_title'],
-                "nurse_list"=>$val['nurse_list']
-            );
-        }
-        //
-        if(count($DataRoom)>1)
-        {
-            $DataRoom = $DataRoom;
-        }
-        else
-        {
-            $DataRoom = [$DataRoom];
-        }
-        // $RefURL = array("https://www.gujarattourism.com/file-manager/ebrochure/thumbs/testing_e_brochure_3.pdf","http://www3.eng.psu.ac.th/pec/6/pec6/paper/CoE/PEC6OR170.pdf","https://forums.estimote.com/t/use-rssi-measure-the-distance/3665/3");
-        $GetDataAPI = [
-            "head"=>array("code"=>200,"message"=>"OK"),
-            "body"=>array("room"=> $DataRoom )
-            // ,"footer"=>array("Ref."=>$RefURL)
-        ]; 
-        $filenameGetDataAPI = "json/GetDataAPI.json";
-        $file_encodeGetDataAPI = json_encode($GetDataAPI,true);
-        file_put_contents($filenameGetDataAPI, $file_encodeGetDataAPI );
-        chmod($filenameGetDataAPI,0777);  
-        //
-        // unlink($device_device_id_URL);
-        //
-    }
-    //
-
-}
 
 // function Main()
 // {
@@ -264,27 +159,6 @@ function GetRoom()
 //         ];   
 //     }
 // } 
-
-/*
-
-ตารางงานสัปดาห์นี้ (30/03/63 - 03/04/63)
-(W@H)
-Phayathai Project
-+ Develop Client API Androidbox
-    - Function Check Version and Get Lists Androidbox
-    - Function Check Version and Get Lists iTAG
-    - Function Get 
-    - Function Write Get Data JSON   
-
-    - Function Write iTAG Logs
-    - Function Write API Logs
-
-+ Develop Client API ส่งระยะทางของกระดิ่ง
-+ Develop Client API 
-+ Develop Server API ส่งข้อมูลทาง
-+ UPDATE Production CUDM
-
-*/
 
 /*
 

@@ -1,15 +1,56 @@
 <?php
 class dataFunction
 {
+    function FilterDistance($id,$distance)
+    {
+        $filename = 'json/itag.json';
+        $content = trim(file_get_contents($filename));
+        $data_json = json_decode($content, true);
+
+        $iTAG_config = $data_json['config'];
+        $iTAG_device = $data_json['device'];
+
+        for($Anum=0;$Anum<count($iTAG_device);$Anum++)
+        {
+            
+            $iTAGMACADDRESS = $iTAG_device[$Anum]['mac_address'];
+            $iTAGUUID = $iTAG_device[$Anum]['uuid'];
+            if($iTAGMACADDRESS==$id || $iTAGUUID==$id)
+            {
+                $iTAGNAME = $iTAG_device[$Anum]['name'];
+                for($Bnum=0;$Bnum<count($iTAG_config);$Bnum++)
+                {
+                    $CONFIGNAME = $iTAG_config[$Bnum]['name'];
+                    if($iTAGNAME==$CONFIGNAME)
+                    {
+                        $GLOBAL_DISTANCE = $iTAG_config[$Bnum]['global_distance'];
+                        if($distance>=$GLOBAL_DISTANCE)
+                        {
+                            $data = 1;
+                        }
+                        else
+                        {
+                            $data = 0;
+                        }                        
+                    }
+
+                }                
+            }
+
+        }
+
+        return $data;
+    }
+
     function CheckVersionAndGetLists($KIND,$FLAG_TYPE)
     {
         if($KIND=='androidbox')
         {
-            $filename = 'androidbox.json';
+            $filename = 'json/androidbox.json';
         }
         else if($KIND=='itag')
         {
-            $filename = 'itag.json';
+            $filename = 'json/itag.json';
         }
 
         $content = trim(file_get_contents($filename));
@@ -46,31 +87,15 @@ class dataFunction
         return $data;
     }
 
-    function writeJSON($FLAG_WRITEJSON,$itag_data)
+    static function WriteAndroidboxLOG($data_json)
     {
-        if($FLAG_WRITEJSON==1)
-        {
-            if(count($itag_data)>0)
-            {
-
-                //
-                $GetDataAPI = array("Name"=>"ABC");
-                //
-                $filenameGetDataAPI = "json/DataJSON.json";
-                $file_encodeGetDataAPI = json_encode($GetDataAPI,true);
-                file_put_contents($filenameGetDataAPI, $file_encodeGetDataAPI );
-                chmod($filenameGetDataAPI,0777);
-            }
-        }
-
-        if( file_exists($filenameGetDataAPI) )
-        {
-            return 200;
-        }
-        else
-        {
-            return 400;
-        }
+        $androidbox_data = $data_json['androidbox'];
+        // $datelogs = date("Y-m-d");
+        // $filename = "androidboxlogs/".$androidbox_data['device_id']."_".$datelogs.".json";
+        $filename = "androidboxlogs/".$androidbox_data['device_id'].".json";
+        $file_encode = json_encode($data_json,true);
+        file_put_contents($filename, $file_encode );
+        chmod($filename,0777);
     }
 
     /*
@@ -127,7 +152,8 @@ class dataFunction
     }
     */
 
-    function WriteGetDataJSON()
+    /*
+    function WriteGetDataJSONold()
     {
         // if( isset($FLAG_BACKEND) )
         // {
@@ -244,4 +270,32 @@ class dataFunction
         //     }
         // }    
     }
+
+    function writeJSON($FLAG_WRITEJSON,$itag_data)
+    {
+        if($FLAG_WRITEJSON==1)
+        {
+            if(count($itag_data)>0)
+            {
+
+                //
+                $GetDataAPI = array("Name"=>"ABC");
+                //
+                $filenameGetDataAPI = "json/DataJSON.json";
+                $file_encodeGetDataAPI = json_encode($GetDataAPI,true);
+                file_put_contents($filenameGetDataAPI, $file_encodeGetDataAPI );
+                chmod($filenameGetDataAPI,0777);
+            }
+        }
+
+        if( file_exists($filenameGetDataAPI) )
+        {
+            return 200;
+        }
+        else
+        {
+            return 400;
+        }
+    }
+    */
 }
