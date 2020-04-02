@@ -21,67 +21,121 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 {
     if( isset($data_json) )
     {
-        if(isset($data_json['androidbox']))
+        //Androidbox
+        if( isset($data_json['androidbox']) && isset($data_json['androidbox']['device_id']) )
         { 
+            $FLAG_PARAMS = 1;
             $androidbox_data = $data_json['androidbox']; 
+            $deviceId = $androidbox_data['device_id'];
+        }
+        else if( isset($data_json['information']) && isset($data_json['androidbox']['deviceId']) )
+        {
+            $FLAG_PARAMS = 1;
+            $androidbox_data = $data_json['information'];
+            $deviceId = $androidbox_data['deviceId'];
         }
         else
         {
-            $androidbox_data = $data_json['information'];
+            $FLAG_PARAMS = 0;
+        }
+
+        //iTAG
+        if(isset($data_json['itag']))
+        { 
+            $FLAG_PARAMS2 = 1;
+            $itag_data = $data_json['itag']; 
+        }
+        else if(isset($data_json['nurse']))
+        {
+            $FLAG_PARAMS2 = 1;
+            $itag_data = $data_json['nurse'];
+        }
+        else
+        {
+            $FLAG_PARAMS2 = 0;
+        }
+
+        //List
+        if(isset($itag_data['list']))
+        { 
+            $FLAG_PARAMS_LIST = 1;
+            $itag_list_data = $itag_data['list']; 
+        }
+        else
+        {
+            $FLAG_PARAMS_LIST = 0;
+        }
+
+        //Version
+        if(isset($itag_data['version']))
+        { 
+            $FLAG_PARAMS_VERSION = 1;
+            $itag_version_data = $itag_data['version']; 
+        }
+        else
+        {
+            $FLAG_PARAMS_VERSION = 0;
         }
         
-        if( isset($data_json['itag']) && isset($data_json['androidbox']) )
+        if( $FLAG_PARAMS==1 && $FLAG_PARAMS2==1 && $FLAG_PARAMS_VERSION==1 )
         {
-            $itag_data = $data_json['itag'];
-            $androidbox_data = $data_json['androidbox'];
-            $GetiTAGversion = $dataFunction->CheckVersionAndGetLists('itag','checkversion');
-
-            if( isset($itag_data['list']) )
+            $isAndroidbox = $dataFunction->isAndroidbox($deviceId);
+            if($isAndroidbox==1)
             {
-                $itag_version_data = $itag_data['version'];
-                if($GetiTAGversion!=$itag_version_data)
+                $GetiTAGversion = $dataFunction->CheckVersionAndGetLists('itag','checkversion');
+                if( $FLAG_PARAMS_LIST==1 )
                 {
-                    $itag_list = $dataFunction->CheckVersionAndGetLists('itag','getlists');
-                    $itag_list = ["itag_list"=>$itag_list];
+                    if($GetiTAGversion!=$itag_version_data)
+                    {
+                        $itag_list = $dataFunction->CheckVersionAndGetLists('itag','getlists');
+                        $itag_list = ["itag_list"=>$itag_list];
+                    }
+                    else
+                    {
+                        $itag_list = [];
+                    }
+                    $code = 200;
+                    $message = "Send Success";
+                    $version = $GetiTAGversion;
+                    $data = $itag_list;                
                 }
                 else
                 {
-                    $itag_list = [];
+                    $code = 200;
+                    $message = "Send Success => NO HAVE PARAMS LIST";
+                    $version = $GetiTAGversion;
+                    $data = [];
                 }
-                $code = 200;
-                $message = "Send Success";
-                $version = $GetiTAGversion;
-                $data = $itag_list;                
+
+                if($FLAG_WRITEJSON==1)
+                {
+                    $WRITEJSON = ["footer"=>$dataFunction->WriteAndroidboxLOG($data_json)];
+                }
+                else
+                {
+                    $WRITEJSON = [];
+                    $dataFunction->WriteAndroidboxLOG($data_json);
+                }
+
+                if($FLAG_VIEW==1)
+                {
+                    $GetRoom = ["footer"=>$roomFunction->GetRoom($FLAG_VIEW)];
+                }
+                else
+                {
+                    $GetRoom = [];
+                }
+
+                $data = $data + $GetRoom + $WRITEJSON;
+
             }
-            else if( isset($itag_data['list']) )
+            else
             {
                 $code = 200;
-                $message = "Send Success => NO HAVE PARAMS LIST";
-                $version = $GetiTAGversion;
+                $message = "Send Success => NO HAVE ANDROIDBOX";
+                $version = 'xxxx2020xxxxx';
                 $data = [];
             }
-            $FLAG_WRITEJSON = 0;
-            $FLAG_VIEW = 0;
-            $FLAG_APILOG = 0;
-
-            if($FLAG_WRITEJSON==1)
-            {
-                $WRITEJSON = ["footer"=>$dataFunction->WriteAndroidboxLOG($data_json)];
-            }
-            else
-            {
-                $WRITEJSON = [];
-                $dataFunction->WriteAndroidboxLOG($data_json);
-            }
-
-            if($FLAG_VIEW==1)
-            {
-                $GetRoom = ["footer"=>$roomFunction->GetRoom($FLAG_VIEW)];
-            }
-            else
-            {
-                $GetRoom = [];
-            }            
         }
         else
         {
@@ -112,8 +166,6 @@ $data = [
     "head"=>array("code"=>$code,"message"=>$message,"version"=>$version),
     "body"=>$data
 ];
-
-$data = $data + $GetRoom + $WRITEJSON;
 
 echo json_encode($data,JSON_PRETTY_PRINT);
  

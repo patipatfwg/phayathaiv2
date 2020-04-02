@@ -44,7 +44,23 @@ class dataFunction
 
     function isAndroidbox($id)
     {
-    
+        $filename = 'json/androidbox.json';
+        $content = trim(file_get_contents($filename));
+        $data_json = json_decode($content, true);
+        $androidbox_data = $data_json; 
+        for($num=0;$num<count($androidbox_data);$num++)
+        {
+            $device_id = $androidbox_data['device'][$num]['device_id'];
+            if($device_id==$id)
+            {
+                $FLAG = 1;
+            }
+            else
+            {
+                $FLAG = 0;
+            }
+        }
+        return $FLAG;
     }
     
     function CheckVersionAndGetLists($KIND,$FLAG_TYPE)
