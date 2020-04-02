@@ -1,6 +1,6 @@
 <?php 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
+// error_reporting(E_ALL);
 
 session_start();
 header('Content-Type: application/json');
@@ -21,6 +21,14 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 {
     if( isset($data_json) )
     {
+        if(isset($data_json['androidbox']))
+        { 
+            $androidbox_data = $data_json['androidbox']; 
+        }
+        else
+        {
+            $androidbox_data = $data_json['information'];
+        }
         if( isset($data_json['itag']) && isset($data_json['androidbox']) )
         {
             $itag_data = $data_json['itag'];
@@ -51,9 +59,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
                 $version = $GetiTAGversion;
                 $data = [];
             }
-            $FLAG_WRITEJSON = 1;
+            $FLAG_WRITEJSON = 0;
             $FLAG_VIEW = 0;
             $FLAG_APILOG = 0;
+
             if($FLAG_WRITEJSON==1)
             {
                 $WRITEJSON = ["footer"=>$dataFunction->WriteAndroidboxLOG($data_json)];
@@ -61,6 +70,16 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             else
             {
                 $WRITEJSON = [];
+                $dataFunction->WriteAndroidboxLOG($data_json);
+            }
+
+            if($FLAG_VIEW==1)
+            {
+                $GetRoom = ["footer"=>$roomFunction->GetRoom($FLAG_VIEW)];
+            }
+            else
+            {
+                $GetRoom = [];
             }            
         }
         else
@@ -86,15 +105,6 @@ else if($_SERVER['REQUEST_METHOD']=='GET')
     $message = "METHOD WHAT => KICK KICK!!!";
     $version = 'xxxx2020xxxxx';
     $data = [];
-}
-
-if($FLAG_VIEW==1)
-{
-    $GetRoom = ["footer"=>$roomFunction->GetRoom($FLAG_VIEW)];
-}
-else
-{
-    $GetRoom = [];
 }
 
 $data = [

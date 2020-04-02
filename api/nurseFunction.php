@@ -20,7 +20,7 @@ class nurseFunction
                 $uuid = $iTAG_list[$getNurse]['uuid'];
                 $mac_address = $iTAG_list[$getNurse]['mac_address'];
                 $distance = $iTAG_list[$getNurse]['distance'];
-                $name = $iTAG_list[$getNurse]['name'];
+                // $name = $iTAG_list[$getNurse]['name'];
 
                 $FLAG_DISTANCE = $dataFunction->FilterDistance($mac_address,$distance);
 
