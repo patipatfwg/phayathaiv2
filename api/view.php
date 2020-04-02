@@ -22,7 +22,6 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             $roomFunction->GetRoom($FLAG_VIEW);
         }
         //Read
-        // $filename = "json/GetDataAPI.json";
         $filename = "GetDataAPI.json";
         $GetDataAPI = trim(file_get_contents($filename));
         $GetDataAPI = json_decode($GetDataAPI, true);

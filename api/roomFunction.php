@@ -59,7 +59,6 @@ class roomFunction
                 "head"=>array("code"=>200,"message"=>"OK"),
                 "body"=>array("room"=>$DataRoom)
             ]; 
-            // $filenameGetDataAPI = "json/GetDataAPI.json";
             $filenameGetDataAPI = "GetDataAPI.json";
             $file_encodeGetDataAPI = json_encode($GetDataAPI,true);
             file_put_contents($filenameGetDataAPI, $file_encodeGetDataAPI );
