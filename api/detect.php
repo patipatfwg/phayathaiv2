@@ -175,6 +175,12 @@ echo json_encode($data,JSON_PRETTY_PRINT);
 // 
 //
 
+//Write Log
+$filename = $deviceId."_data_detect_log.json";
+$file_encode = json_encode($data_json,true);
+file_put_contents($filename, $file_encode );
+chmod($filename,0777);  
+
 
 // function Main()
 // {
