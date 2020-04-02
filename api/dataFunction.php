@@ -42,6 +42,11 @@ class dataFunction
         return $data;
     }
 
+    function isAndroidbox($id)
+    {
+    
+    }
+    
     function CheckVersionAndGetLists($KIND,$FLAG_TYPE)
     {
         if($KIND=='androidbox')

@@ -29,6 +29,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         {
             $androidbox_data = $data_json['information'];
         }
+        
         if( isset($data_json['itag']) && isset($data_json['androidbox']) )
         {
             $itag_data = $data_json['itag'];
