@@ -47,19 +47,21 @@ class dataFunction
         $filename = 'json/androidbox.json';
         $content = trim(file_get_contents($filename));
         $data_json = json_decode($content, true);
-        $androidbox_data = $data_json; 
+        $androidbox_data = $data_json['device']; 
         for($num=0;$num<count($androidbox_data);$num++)
         {
-            $device_id = $androidbox_data['device'][$num]['device_id'];
+            $device_id = $androidbox_data[$num]['device_id'];
             if($device_id==$id)
             {
                 $FLAG = 1;
             }
-            else
-            {
-                $FLAG = 0;
-            }
         }
+
+        if($FLAG!=1)
+        {
+            $FLAG = 0;
+        }
+
         return $FLAG;
     }
     
