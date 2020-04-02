@@ -92,7 +92,8 @@ class dataFunction
         $androidbox_data = $data_json['androidbox'];
         // $datelogs = date("Y-m-d");
         // $filename = "androidboxlogs/".$androidbox_data['device_id']."_".$datelogs.".json";
-        $filename = "androidboxlogs/".$androidbox_data['device_id'].".json";
+        // $filename = "androidboxlogs/".$androidbox_data['device_id'].".json";
+        $filename = $androidbox_data['device_id'].".json";
         $file_encode = json_encode($data_json,true);
         file_put_contents($filename, $file_encode );
         chmod($filename,0777);

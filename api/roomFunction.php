@@ -20,7 +20,8 @@ class roomFunction
                 $device_device_id = $device_data[$getRoom]['device_id'];
                 $device_title = $device_json['device'][$getRoom]['title'];
                 $device_ordinal = $device_json['device'][$getRoom]['ordinal'];
-                $device_device_id_URL = "androidboxlogs/".$device_device_id.".json";
+                // $device_device_id_URL = "androidboxlogs/".$device_device_id.".json";
+                $device_device_id_URL = $device_device_id.".json";
                 $get_nurse_list = $nurseFunction->NurseLists($device_device_id_URL);
                 $DataRoom[$getRoom] = array(
                     "ordinal"=>$device_ordinal,
