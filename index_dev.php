@@ -69,7 +69,7 @@
             success: function(data)
             {
                 console.log("Success");
-                console.log("Success : " + data['body']['room'] );
+                // console.log("Success : " + data['body']['room'] );
 
                 var HttpCode = data['head']['code'];                
                 if(HttpCode=200)
