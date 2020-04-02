@@ -57,8 +57,8 @@
     $(document).ready(function() 
     {
         setTimeout(4000);
-        // var url = 'http://localhost';
-        var url = 'http://freewillmdc.loginto.me:56870';
+        var url = 'http://localhost';
+        // var url = 'http://freewillmdc.loginto.me:56870';
         var li_list = [];
         var path = '/phayathaiv2/api/view.php';
         $.ajax(

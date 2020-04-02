@@ -96,6 +96,8 @@ class dataFunction
         $file_encode = json_encode($data_json,true);
         file_put_contents($filename, $file_encode );
         chmod($filename,0777);
+
+        return $file_encode;
     }
 
     /*

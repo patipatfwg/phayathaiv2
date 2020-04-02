@@ -56,7 +56,11 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             $FLAG_APILOG = 0;
             if($FLAG_WRITEJSON==1)
             {
-                $dataFunction->WriteAndroidboxLOG($data_json);
+                $WRITEJSON = ["footer"=>$dataFunction->WriteAndroidboxLOG($data_json)];
+            }
+            else
+            {
+                $WRITEJSON = [];
             }            
         }
         else
@@ -98,7 +102,7 @@ $data = [
     "body"=>$data
 ];
 
-$data = $data + $GetRoom;
+$data = $data + $GetRoom + $WRITEJSON;
 
 echo json_encode($data,JSON_PRETTY_PRINT);
  
