@@ -95,7 +95,7 @@
                             for (j = 0; j < count_nurse; j++)
                             {
                                 // nurse_label += (j+1)+') '+data_nurse[j]['mac_address']+' | '+data_nurse[j]['distance']+' dBm<br>';
-                                nurse_label += (j+1)+') '+data_nurse[j]['mac_address']+' | '+data_nurse[j]['distance']+' dBm<br>';
+                                nurse_label += (j+1)+') '+data_nurse[j]['uuid']+' | '+data_nurse[j]['distance']+' dBm<br>';
                                 console.log(nurse_label);
                             }
                         }
