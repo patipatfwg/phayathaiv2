@@ -56,10 +56,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         }
 
         //List
-        if(isset($itag_data['list']))
+        if(isset($itag_data['itag_list']))
         { 
             $FLAG_PARAMS_LIST = 1;
-            $itag_list_data = $itag_data['list']; 
+            $itag_list_data = $itag_data['itag_list']; 
         }
         else
         {
@@ -92,7 +92,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
                     }
                     else
                     {
-                        $itag_list = [];
+                        $itag_list = ["itag_list"=>null];
                     }
                     $code = 200;
                     $message = "Send Success";

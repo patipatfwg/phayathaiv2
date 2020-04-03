@@ -13,9 +13,9 @@ class dataFunction
         for($Anum=0;$Anum<count($iTAG_device);$Anum++)
         {
             
-            $iTAGMACADDRESS = $iTAG_device[$Anum]['mac_address'];
+            // $iTAGMACADDRESS = $iTAG_device[$Anum]['mac_address'];
             $iTAGUUID = $iTAG_device[$Anum]['uuid'];
-            if($iTAGMACADDRESS==$id || $iTAGUUID==$id)
+            if($iTAGUUID==$id)
             {
                 $iTAGNAME = $iTAG_device[$Anum]['name'];
                 for($Bnum=0;$Bnum<count($iTAG_config);$Bnum++)
@@ -101,7 +101,7 @@ class dataFunction
                 {
                     $data[$num] = array(
                         'mac_address'=> $device[$num]['mac_address'],
-                        'uuid'=> '0000000000000'
+                        'uuid'=> $device[$num]['uuid']
                         // ,'title'=> $device[$num]['title']
                     );
                 }

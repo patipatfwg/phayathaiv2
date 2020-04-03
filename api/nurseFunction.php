@@ -28,7 +28,7 @@ class nurseFunction
                 {
                     $get_nurse_list[$getNurse] = array(
                         'uuid'=>$uuid,
-                        'mac_address'=>$mac_address,
+                        // 'mac_address'=>$mac_address,
                         'distance'=>$distance
                     );
                 }
@@ -49,7 +49,7 @@ class nurseFunction
         foreach ($get_nurse_list as $key => $val) {
             $get_nurse_list[$key] = array(
                 'uuid'=>$val['uuid'],
-                'mac_address'=>$val['mac_address'],
+                // 'mac_address'=>$val['mac_address'],
                 'distance'=>$val['distance']
             );
         }
