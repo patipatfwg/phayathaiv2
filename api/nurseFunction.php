@@ -12,7 +12,7 @@ class nurseFunction
         {
             $iTAG_json = trim(file_get_contents($device_device_id_URL));
             $iTAG_json = json_decode($iTAG_json, true);
-            $iTAG_list = $iTAG_json['itag']['list'];
+            $iTAG_list = $iTAG_json['itag']['itag_list'];
             $get_nurse_list = [];
             
             for($getNurse=0;$getNurse<count($iTAG_list);$getNurse++)
@@ -22,7 +22,7 @@ class nurseFunction
                 $distance = $iTAG_list[$getNurse]['distance'];
                 // $name = $iTAG_list[$getNurse]['name'];
 
-                $FLAG_DISTANCE = $dataFunction->FilterDistance($mac_address,$distance);
+                $FLAG_DISTANCE = $dataFunction->FilterDistance($uuid,$distance);
 
                 if( $FLAG_DISTANCE==1 )
                 {
