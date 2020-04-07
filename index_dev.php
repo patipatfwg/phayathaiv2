@@ -57,8 +57,8 @@
     $(document).ready(function() 
     {
         setTimeout(4000);
-        // var url = 'http://localhost';
-        var url = 'http://freewillmdc.loginto.me:56870';
+        var url = 'http://localhost';
+        // var url = 'http://freewillmdc.loginto.me:56870';
         var li_list = [];
         var path = '/phayathaiv2/api/view.php';
         $.ajax(
@@ -94,8 +94,9 @@
                             
                             for (j = 0; j < count_nurse; j++)
                             {
+                                nurse_label += (j+1)+') '+data_nurse[j]['title']+' | '+data_nurse[j]['distance']+' dBm<br>';
                                 // nurse_label += (j+1)+') '+data_nurse[j]['mac_address']+' | '+data_nurse[j]['distance']+' dBm<br>';
-                                nurse_label += (j+1)+') '+data_nurse[j]['uuid']+' | '+data_nurse[j]['distance']+' dBm<br>';
+                                // nurse_label += (j+1)+') '+data_nurse[j]['uuid']+' | '+data_nurse[j]['distance']+' dBm<br>';
                                 console.log(nurse_label);
                             }
                         }
