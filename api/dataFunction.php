@@ -12,7 +12,10 @@ class dataFunction
 
         for($Anum=0;$Anum<count($iTAG_device);$Anum++)
         {
-            $iTAGTITLE = $iTAG_device[$Anum]['title'];
+            if($id==$iTAG_device[$Anum]['mac_address'])
+            {
+                $iTAGTITLE = $iTAG_device[$Anum]['title'];
+            }
         }
 
         return $iTAGTITLE;
