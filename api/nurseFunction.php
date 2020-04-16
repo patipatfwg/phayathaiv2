@@ -18,6 +18,7 @@ class nurseFunction
             for($getNurse=0;$getNurse<count($iTAG_list);$getNurse++)
             {
                 // $uuid = $iTAG_list[$getNurse]['uuid'];
+                $uuid = '';
                 $mac_address = $iTAG_list[$getNurse]['mac_address'];
                 $distance = $iTAG_list[$getNurse]['distance'];
                 $title = $dataFunction->GetTitle($mac_address);
