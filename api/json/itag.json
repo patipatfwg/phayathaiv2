@@ -24,6 +24,13 @@
           "name":"devdev",
           "title": "หูฟังของปลื้ม",
           "position": "ผู้ช่วยพยาบาล"
+        },
+        {
+          "uuid": "0000",
+          "mac_address":"F6:74:96:54:8E:B6",
+          "name":"devdev",
+          "title": "หูฟังของโซ่",
+          "position": "ผู้ช่วยพยาบาล"
         }
   ]
 }
