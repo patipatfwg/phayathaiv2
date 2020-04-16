@@ -1,10 +1,18 @@
+<?php
+  header("Access-Control-Allow-Origin: *");
+  header('Access-Control-Allow-Methods: POST');
+  header("Access-Control-Allow-Credentials: true");
+?>
 <head>
 <meta charset="UTF-8">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> -->
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>    
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.js"></script>   -->
 <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> -->
+<link href="bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="bootstrap.min.js"></script>
+<!-- <script src="jquery.min.js"></script>  -->
 <style>
     .ds-btn li{ list-style:none; float:left; padding:10px; }
     .ds-btn li a span{padding-left:15px;padding-right:5px;width:100%;display:inline-block; text-align:left;}
@@ -57,13 +65,19 @@
     $(document).ready(function() 
     {
         setTimeout(4000);
-        // var url = 'http://localhost';
         var url = 'http://freewillmdc.loginto.me:56870';
-        var li_list = [];
         var path = '/phayathaiv2/api/view.php';
+        var freewillmdc = url+path;
+        var localhost = 'api/view.php';
+        // var urlpath = freewillmdc;
+        var urlpath = localhost;
+    
+        var li_list = [];
         $.ajax(
         {
-            url : url+path,
+            // url : url+path,
+            url : urlpath,
+            xhrFields: {withCredentials: true},
             type: 'POST',
             datatype: 'json',
             success: function(data)
@@ -156,3 +170,13 @@
         document.getElementById("Console").innerHTML = "Time : " + strDateTime;
     };
 </script>
+
+<?php
+
+/*
+    - เรื่องค่ากลาง Config : แก้เสร็จแล้ว
+    - เรื่อง Filter ให้หน้าบ้าน Filter ให้
+    - AWebServer Android Server ตัวใหม่
+*/
+
+?>
