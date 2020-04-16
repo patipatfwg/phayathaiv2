@@ -69,8 +69,8 @@
         var path = '/phayathaiv2/api/view.php';
         var freewillmdc = url+path;
         var localhost = 'api/view.php';
-        // var urlpath = freewillmdc;
-        var urlpath = localhost;
+        var urlpath = freewillmdc;
+        // var urlpath = localhost;
     
         var li_list = [];
         $.ajax(
