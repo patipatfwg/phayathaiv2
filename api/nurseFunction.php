@@ -12,7 +12,15 @@ class nurseFunction
         {
             $iTAG_json = trim(file_get_contents($device_device_id_URL));
             $iTAG_json = json_decode($iTAG_json, true);
-            $iTAG_list = $iTAG_json['iTAG']['itag_list'];
+            
+            if( isset($iTAG_json['iTAG']['itag_list']) )
+            {
+                $iTAG_list = $iTAG_json['iTAG']['itag_list'];
+            }
+            else if( isset($iTAG_json['itag']['itag_list']) )
+            {
+                $iTAG_list = $iTAG_json['itag']['itag_list'];
+            }
             $get_nurse_list = [];
             
             for($getNurse=0;$getNurse<count($iTAG_list);$getNurse++)
