@@ -63,6 +63,10 @@ class dataFunction
 
                 }                
             }
+            else
+            {
+                $data = 0;   
+            }
 
         }
 
