@@ -1,8 +1,9 @@
 <?php
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
+set_time_limit(0);
 
-session_start();
+// session_start();
 header('Content-Type: application/json');
 
 include "dataFunction.php";

@@ -1,8 +1,9 @@
 <?php 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
+set_time_limit(0);
 
-session_start();
+// session_start();
 header('Content-Type: application/json');
 
 include "dataFunction.php";
@@ -55,6 +56,17 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             $FLAG_PARAMS2 = 0;
         }
 
+        //Version
+        if(isset($itag_data['version']))
+        { 
+            $FLAG_PARAMS_VERSION = 1;
+            $itag_version_data = $itag_data['version']; 
+        }
+        else
+        {
+            $FLAG_PARAMS_VERSION = 0;
+        }
+
         //List
         if(isset($itag_data['itag_list']))
         { 
@@ -66,17 +78,6 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             $FLAG_PARAMS_LIST = 0;
         }
 
-        //Version
-        if(isset($itag_data['version']))
-        { 
-            $FLAG_PARAMS_VERSION = 1;
-            $itag_version_data = $itag_data['version']; 
-        }
-        else
-        {
-            $FLAG_PARAMS_VERSION = 0;
-        }
-        
         if( $FLAG_PARAMS==1 && $FLAG_PARAMS2==1 && $FLAG_PARAMS_VERSION==1 )
         {
             $isAndroidbox = $dataFunction->isAndroidbox($deviceId);
@@ -142,7 +143,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             $code = 400;
             $message = "NOT PARAMS $FLAG_PARAMS $FLAG_PARAMS2 $FLAG_PARAMS_VERSION  => KICK KICK!!!";
             $version = 'xxxx2020xxxxx';
-            $data = [];
+            $data = [$data_json];
         }
         //End
     }

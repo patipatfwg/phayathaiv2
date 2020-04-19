@@ -21,45 +21,6 @@ class dataFunction
         return $iTAGTITLE;
     }
 
-    function FilterDistance($id,$distance)
-    {
-        $filename = 'json/itag.json';
-        $content = trim(file_get_contents($filename));
-        $data_json = json_decode($content, true);
-
-        $iTAG_config = $data_json['config'];
-        $iTAG_device = $data_json['device'];
-
-        for($Anum=0;$Anum<count($iTAG_device);$Anum++)
-        {
-            $iTAGUUID = $iTAG_device[$Anum]['uuid'];
-            if($iTAGUUID==$id)
-            {
-                $iTAGNAME = $iTAG_device[$Anum]['name'];
-                for($Bnum=0;$Bnum<count($iTAG_config);$Bnum++)
-                {
-                    $CONFIGNAME = $iTAG_config[$Bnum]['name'];
-                    if($iTAGNAME==$CONFIGNAME)
-                    {
-                        $GLOBAL_DISTANCE = $iTAG_config[$Bnum]['global_distance'];
-                        if($distance>=$GLOBAL_DISTANCE)
-                        {
-                            $data = 1;
-                        }
-                        else
-                        {
-                            $data = 0;
-                        }                        
-                    }
-
-                }                
-            }
-
-        }
-
-        return $data;
-    }
-
     function FilterDistanceMAC($id,$distance)
     {
         $filename = 'json/itag.json';
@@ -181,6 +142,47 @@ class dataFunction
 
         return $file_encode;
     }
+
+    /*
+    function FilterDistance($id,$distance)
+    {
+        $filename = 'json/itag.json';
+        $content = trim(file_get_contents($filename));
+        $data_json = json_decode($content, true);
+
+        $iTAG_config = $data_json['config'];
+        $iTAG_device = $data_json['device'];
+
+        for($Anum=0;$Anum<count($iTAG_device);$Anum++)
+        {
+            $iTAGUUID = $iTAG_device[$Anum]['uuid'];
+            if($iTAGUUID==$id)
+            {
+                $iTAGNAME = $iTAG_device[$Anum]['name'];
+                for($Bnum=0;$Bnum<count($iTAG_config);$Bnum++)
+                {
+                    $CONFIGNAME = $iTAG_config[$Bnum]['name'];
+                    if($iTAGNAME==$CONFIGNAME)
+                    {
+                        $GLOBAL_DISTANCE = $iTAG_config[$Bnum]['global_distance'];
+                        if($distance>=$GLOBAL_DISTANCE)
+                        {
+                            $data = 1;
+                        }
+                        else
+                        {
+                            $data = 0;
+                        }                        
+                    }
+
+                }                
+            }
+
+        }
+
+        return $data;
+    }
+    */
 
     /*
     function GetVersionAndroidbox()

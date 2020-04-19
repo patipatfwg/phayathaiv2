@@ -62,20 +62,16 @@
 </div>
 <script language="javascript">
     xhr = new XMLHttpRequest();
-    $(document).ready(function() 
+    $(document).ready(function()
     {
         setTimeout(4000);
-        var url = 'http://freewillmdc.loginto.me:56870';
-        var path = '/phayathaiv2/api/view.php';
-        var freewillmdc = url+path;
+        var freewillmdc = 'http://freewillmdc.loginto.me:56870/phayathaiv2/api/view.php';
         var localhost = 'api/view.php';
-        var urlpath = freewillmdc;
-        // var urlpath = localhost;
+        var urlpath = localhost;
     
         var li_list = [];
         $.ajax(
         {
-            // url : url+path,
             url : urlpath,
             xhrFields: {withCredentials: true},
             type: 'POST',
@@ -118,7 +114,7 @@
                         {
                             // var icon = "<i class='glyphicon glyphicon-tag pull-left'></i>";
                             var icon = "<img alt='รูปคนไข้' src='png/bed.png' style='width:60px;height:60px;'></img>";
-                            var aclass = "btn btn-lg btn-success";
+                            var aclass = "btn btn-lg btn-info";
                             var label = "คนไข้กำลังพักผ่อน";
                             var nurse_label = '<br>';
                         }                        
