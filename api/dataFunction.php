@@ -18,7 +18,7 @@ class dataFunction
             }
             else
             {
-                $iTAGTITLE = null;
+                $iTAGTITLE = 0;
             }
         }
 
@@ -55,6 +55,10 @@ class dataFunction
                         {
                             $data = 0;
                         }                        
+                    }
+                    else
+                    {
+                        $data = 0;
                     }
 
                 }                
