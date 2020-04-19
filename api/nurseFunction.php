@@ -35,7 +35,7 @@ class nurseFunction
                 */
 
                 $FLAG_DISTANCE_MAC = $dataFunction->FilterDistanceMAC($mac_address,$distance);
-                if( $FLAG_DISTANCE_MAC==1 && $title!=0 )
+                if( $FLAG_DISTANCE_MAC==1 )
                 {
                     $get_nurse_list[$getNurse] = array(
                         // 'uuid'=>$uuid,
