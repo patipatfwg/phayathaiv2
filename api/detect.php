@@ -41,10 +41,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         }
 
         //iTAG
-        if(isset($data_json['itag']))
+        if(isset($data_json['iTAG']))
         { 
             $FLAG_PARAMS2 = 1;
-            $itag_data = $data_json['itag']; 
+            $itag_data = $data_json['iTAG']; 
         }
         else if(isset($data_json['nurse']))
         {
@@ -176,69 +176,10 @@ echo json_encode($data,JSON_PRETTY_PRINT);
 // 
 //
 
+unset($code,$message,$version,$data);
+
 //Write Log
 $filename = $deviceId."_data_detect_log.json";
 $file_encode = json_encode($data_json,true);
 file_put_contents($filename, $file_encode );
-chmod($filename,0777);  
-
-
-// function Main()
-// {
-//     // $itag_data = $data_json['itag'];
-//     // $androidbox_data = $data_json['androidbox'];
-//     $write_device_id = $androidbox_data['device_id'];
-//     if($write_device_id!='')
-//     {
-//         //Write Log
-//         $filename = "jsonlogs/".$information_data['device_id']."_data_detect.json";
-//         $file_encode = json_encode($data_json,true);
-//         file_put_contents($filename, $file_encode );
-//         chmod($filename,0777);     
-         
-//         //
-//         // for($num=0;$num<count($nurse_data);$num++)
-//         // {
-//         //     $title = $nurse_data[$num]['title'];
-//         //     if($title=='iTAG            ')
-//         //     {
-//         //         $mac_address = $nurse_data[$num]['mac_address'];
-//         //         $distance = $nurse_data[$num]['distance'];
-//         //         $data_input = [array(  'mac_address'=> $mac_address,'title'=> $title,'distance'=> $distance)];
-//         //     }
-//         // }
-
-//         for($num=0;$num<count($nurse_data);$num++)
-//         {
-//             if( isset($nurse_data[$num]['title']) ){$title = $nurse_data[$num]['title'];}else{$title =null;}
-          
-//             $uuid = $nurse_data[$num]['uuid'];
-//             $mac_address = $nurse_data[$num]['mac_address'];
-//             $distance = $nurse_data[$num]['distance'];
-//             $data_input[$num] = array(   'uuid'=> $uuid,'mac_address'=> $mac_address,'title'=> $title,'distance'=> $distance);
-            
-//         }
-        
-//         $data = [
-//             "head"=>array("code"=>200,"message"=>"OK","version"=>''),
-//             "body"=>array( "iTAG"=> $data_input )
-//         ];
-        
-//     }
-//     else
-//     {
-//         $data = [
-//             "head"=>array("code"=>200,"message"=>"Thank You Pong","version"=>''),
-//             "body"=>[]
-//         ];   
-//     }
-// } 
-
-/*
-
-function Main()
-function Write JSON Logs()
-function Write API Logs()
-function Write Get Data JSON()
-
-*/
+chmod($filename,0777);
