@@ -16,6 +16,10 @@ class dataFunction
             {
                 $iTAGTITLE = $iTAG_device[$Anum]['title'];
             }
+            else
+            {
+                $iTAGTITLE = null;
+            }
         }
 
         return $iTAGTITLE;
