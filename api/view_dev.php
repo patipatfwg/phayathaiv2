@@ -23,10 +23,11 @@ if($_SERVER['REQUEST_METHOD']=='POST' || $_SERVER['REQUEST_METHOD']=='GET')
             $roomFunction->GetRoom($FLAG_VIEW);
         }
         //Read
-        $filename = "GetDataAPI_dev.json";
-        $GetDataAPI = trim(file_get_contents($filename));
-        $GetDataAPI = json_decode($GetDataAPI, true);
-        echo json_encode($GetDataAPI);
+        $filename = array("head"=>"OK");
+        echo json_encode($filename);
+        // $GetDataAPI = trim(file_get_contents($filename));
+        // $GetDataAPI = json_decode($GetDataAPI, true);
+        // echo json_encode($GetDataAPI);
     }
 }
 else
