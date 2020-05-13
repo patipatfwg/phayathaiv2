@@ -51,6 +51,16 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             $FLAG_PARAMS2 = 1;
             $itag_data = $data_json['itag'];
         }
+        else if(isset($data_json['itagg']))
+        {
+            $FLAG_PARAMS2 = 1;
+            $itag_data = $data_json['itagg'];
+        }
+        else if(isset($data_json['itaggg']))
+        {
+            $FLAG_PARAMS2 = 1;
+            $itag_data = $data_json['itaggg'];
+        }
         else
         {
             $FLAG_PARAMS2 = 0;

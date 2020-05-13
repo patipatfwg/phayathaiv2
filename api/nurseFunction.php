@@ -21,6 +21,14 @@ class nurseFunction
             {
                 $iTAG_list = $iTAG_json['itag']['itag_list'];
             }
+            else if( isset($iTAG_json['itagg']['itag_list']) )
+            {
+                $iTAG_list = $iTAG_json['itagg']['itag_list'];
+            }
+            else if( isset($iTAG_json['itaggg']['itag_list']) )
+            {
+                $iTAG_list = $iTAG_json['itaggg']['itag_list'];
+            }
             $get_nurse_list = [];
             
             for($getNurse=0;$getNurse<count($iTAG_list);$getNurse++)

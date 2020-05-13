@@ -13,7 +13,7 @@ $roomFunction = new roomFunction;
 
 $headers_Authorization = $_SERVER['HTTP_AUTHORIZATION'];
 
-if($_SERVER['REQUEST_METHOD']=='POST')
+if($_SERVER['REQUEST_METHOD']=='POST' || $_SERVER['REQUEST_METHOD']=='GET')
 {
     if($headers_Authorization=='phayathai@freewill')
     {
