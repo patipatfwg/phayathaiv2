@@ -29,7 +29,19 @@
           "uuid": "0000",
           "mac_address":"F6:74:96:54:8E:B6",
           "name":"devdev",
-          "title": "หูฟังของโซ่",
+          "title": "หูฟังของโซ่ [Garmin]",
+          "position": "ผู้ช่วยพยาบาล"
+        },
+        {
+          "mac_address":"1C:52:16:A8:2B:AB",
+          "name":"devdev",
+          "title": "หูฟังของโซ่ [AirDot_L]",
+          "position": "ผู้ช่วยพยาบาล"
+        },
+        {
+          "mac_address":"1C:52:16:99:3DS:90",
+          "name":"devdev",
+          "title": "หูฟังของโซ่ [AirDot_R]",
           "position": "ผู้ช่วยพยาบาล"
         }
   ]
