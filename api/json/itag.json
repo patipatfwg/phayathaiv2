@@ -33,12 +33,14 @@
           "position": "ผู้ช่วยพยาบาล"
         },
         {
+          "uuid": "0000",
           "mac_address":"1C:52:16:A8:2B:AB",
           "name":"devdev",
           "title": "หูฟังของโซ่ [AirDot_L]",
           "position": "ผู้ช่วยพยาบาล"
         },
         {
+          "uuid": "0000",
           "mac_address":"1C:52:16:99:3DS:90",
           "name":"devdev",
           "title": "หูฟังของโซ่ [AirDot_R]",

@@ -18,7 +18,7 @@ class dataFunction
             }
             else
             {
-                $iTAGTITLE = 0;
+                $iTAGTITLE = "Hi";
             }
         }
 
@@ -47,19 +47,22 @@ class dataFunction
                     if($iTAGNAME==$CONFIGNAME)
                     {
                         $GLOBAL_DISTANCE = $iTAG_config[$Bnum]['global_distance'];
-                        if($distance>=$GLOBAL_DISTANCE)
+                        
+                        if($distance>$GLOBAL_DISTANCE)
                         {
                             $data = 1;
                         }
                         else
                         {
                             $data = 0;
-                        }                        
+                        }  
+                     
                     }
                     else
                     {
                         $data = 0;
                     }
+                    
 
                 }                
             }
@@ -67,6 +70,7 @@ class dataFunction
             {
                 $data = 0;   
             }
+            // var_dump($iTAGMACADDRESS."| distance=$data |".$id);
 
         }
 
